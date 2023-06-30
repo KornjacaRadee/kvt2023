@@ -34,4 +34,26 @@ export class AuthServiceService {
         this.access_token = res.accessToken;
         localStorage.setItem("jwt", res.accessToken);
       }));
-  }}
+
+
+  }
+  signup(user: any) {
+    const signupHeaders = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this.apiService.post(this.config.signup_url, JSON.stringify(user), signupHeaders)
+      .pipe(map(() => {
+        console.log('Sign up success');
+      }));
+  }
+
+  tokenInUse() {
+    return this.access_token != undefined && this.access_token != null;
+  }
+
+  findToken() {
+    return this.access_token;
+  }
+
+}

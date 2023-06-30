@@ -14,10 +14,10 @@ export class ConfigService {
     return this._login_url;
   }
 
-  private _whoami_url = this._auth_url + '/whoami';
+  private _profile_url = this._auth_url + '/profile';
 
-  get whoami_url(): string {
-    return this._whoami_url;
+  get profile_url(): string {
+    return this._profile_url;
   }
 
   private _signup_url = this._auth_url + '/signup';
@@ -28,16 +28,16 @@ export class ConfigService {
 
   private _post_url = this._api_url + '/post';
 
-  private _posts_url = this._post_url + '/all';
+  private _posts_url = this._post_url + '/allposts';
 
   get posts_url(): string {
     return this._posts_url;
   }
 
-  private _add_post_url = this._post_url + '/add';
+  private _new_post_url = this._post_url + '/new';
 
-  get add_post_url(): string {
-    return this._add_post_url;
+  get new_post_url(): string {
+    return this._new_post_url;
   }
 
   private _update_post_url = this._post_url + '/update';
@@ -63,11 +63,6 @@ export class ConfigService {
     return this._users_url;
   }
 
-//   private _club_url = this._api_url + '/clubs';
-
-//   get club_url(): string {
-//     return this._club_url;
-//   }
 
 
 }

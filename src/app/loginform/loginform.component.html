@@ -1,21 +1,16 @@
-    <form #loginForm="ngForm" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="get-started" id="login-screen">
-       <p>
-
-                    <span class="material-icons" id="login-logo">
-                        maps_ugc
-                    </span>
-                    Chat <span class="login-p-subtitle">Plus</span>
-
-                </p>
-
-
-        <input type="text" name="email" id="email" placeholder="Email ou telefone" class="login-form">
-        <input type="password" name="password" id="password" class="login-form" placeholder="Senha">
-        <input type="button" value="Login" class="login-btn" onclick="login()">
-
-    </div>
+  <div class="container">
+    <h1>Login</h1>
+    <form #loginForm="ngForm"  [formGroup]="form" (ngSubmit)="onSubmit()">
+      <input type="email" [formControlName]="'username'" placeholder="Email" required>
+      <span *ngIf="!form.get('username')?.valid && form.get('username')?.touched">
+        Username not valid!
+      </span>
+      <input type="password" [formControlName]="'password'" placeholder="Password" required>
+      <span *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
+        Password not valid!
+    </span>
+      <button type="submit">Log In</button>
     </form>
-
+  </div>
 
 

@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>Home page</h1>
+  <div class="new-post-section">
+    <h3>Create a New Post</h3>
+    <form [formGroup]="postForm" (submit)="createPost()">
+      <input type="text" formControlName="name" placeholder="Title" required>
+      <textarea formControlName="content" placeholder="Content" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+  <div class="post-list">
+    <div *ngFor="let post of allPosts" class="post">
+      <h2>{{ post.postName }}</h2>
+      <p>{{ post.content }}</p>
+      <p class="author">Posted by: {{ post.user.username }}</p>
+      <div class="actions">
+        <button class="like-button" (click)="likePost(post)">Like</button>
+        <button class="dislike-button" (click)="dislikePost(post)">Dislike</button>
+      </div>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <ul>
+          <li *ngFor="let comment of post.comments">
+            <p>{{ comment }}</p>
+          </li>
+        </ul>
+        <form (submit)="addComment(post)">
+          <input type="text" placeholder="Add a comment" required>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
