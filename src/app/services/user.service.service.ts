@@ -16,6 +16,10 @@ export class UserService {
   ) {
   }
 
+  changePassword(user: any){
+    return this.apiService.put(this.config.change_password_url, user);
+  }
+
   getMyInfo() {
     return this.apiService.get(this.config.profile_url)
       .pipe(map(user => {

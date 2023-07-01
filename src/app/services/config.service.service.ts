@@ -26,6 +26,21 @@ export class ConfigService {
     return this._signup_url;
   }
 
+  private _user_url = this._api_url + '/user';
+
+
+  private _change_password_url = this._user_url + '/updatepassword';
+
+  get change_password_url(): string {
+    return this._change_password_url;
+  }
+
+  private _users_url = this._user_url + '/all';
+
+  get users_url(): string {
+    return this._users_url;
+  }
+
   private _post_url = this._api_url + '/post';
 
   private _posts_url = this._post_url + '/allposts';
@@ -53,15 +68,6 @@ export class ConfigService {
   }
 
 
-  private _user_url = ''
-
-
-
-  private _users_url = this._user_url + '/all';
-
-  get users_url(): string {
-    return this._users_url;
-  }
 
 
 

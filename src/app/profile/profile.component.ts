@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserModel } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -11,11 +13,17 @@ import { UserService } from 'src/app/services/user.service.service';
 export class ProfileComponent implements OnInit {
 
   currentUser: UserModel | null = null;
+  form: FormGroup;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.getUserInfo();
+    this.form = this.formBuilder.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      repeatPassword: ['', Validators.required]
+    });
   }
 
   getUserInfo() {
@@ -27,5 +35,19 @@ export class ProfileComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+
+  changePasswordForm(){
+    const { oldPassword, newPassword, repeatPassword } = this.form.value;
+    this.currentUser.password = newPassword;
+    this.userService.changePassword(this.currentUser).subscribe(
+      (response: UserModel) => {
+        this.currentUser = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+
   }
 }

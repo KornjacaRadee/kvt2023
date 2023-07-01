@@ -68,7 +68,7 @@ export class LoginformComponent implements OnInit{
         },
         error => {
           this.submitted = false;
-          this.notification = {msgType: 'error', msgBody: 'Incorrect username or password.'};
+          this.notification = {msgType: 'error', msgBody: 'Username or password not valid.'};
         });
   }
 }

@@ -1,5 +1,5 @@
 export class UserModel {
-  id!: number;
+  userId!: number;
   username!: string;
   password!: string;
   email!: string;
