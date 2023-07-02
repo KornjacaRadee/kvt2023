@@ -1,3 +1,12 @@
+<div class="group-section">
+  <div *ngFor="let group of userGroups" class="group">
+    <h2>{{ group.name }}</h2>
+    <p>{{ group.descripiton }}</p>
+    <a [routerLink]="'/group'" [queryParams]="{ id: group.id }">See more</a>
+    <button (click)="deleteGroup(group.id)">Delete Group</button>
+    </div>
+    </div>
+
 <div class="container">
   <h1>Profile</h1>
   <div class="profile-info">
@@ -17,6 +26,27 @@
       </ul>
     </div>
   </div>
+  <div class="post-list">
+    <div *ngFor="let post of userPosts" class="post">
+      <h2>{{ post.postName }}</h2>
+      <p>{{ post.content }}</p>
+      <p><span>Likes:</span>{{ post.likes.length }}</p>
+      <p class="author">Posted by: {{ post.user.username }}</p>
+      <p class="author">Posted on: {{ post.creationDate }}</p>
+      <button class="delete-button" (click)="deletePost(post.postId)">Delete</button>
+      <button class="edit-button" (click)="openEditForm(post)">Edit</button>
+      <div class="edit-form" *ngIf="editPostFormVisible && editedPost?.id === post.id">
+        <form [formGroup]="editForm" (submit)="submitEditForm(post)">
+          <input type="text" formControlName="postName" placeholder="Post name">
+          <input type="text" formControlName="postContent" placeholder="Post description">
+          <button type="button" class="cancel-button" (click)="cancelEditForm()">Cancel</button>
+          <button type="submit" class="submit-button">Submit</button>
+        </form>
+      </div>
+         <hr>
+      </div>
+      </div>
+
   <div class="password-form">
     <h3>Change Password</h3>
     <form #profileForm="ngForm"  [formGroup]="form" (submit)="changePasswordForm()">

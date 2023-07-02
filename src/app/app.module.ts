@@ -19,6 +19,7 @@ import {UserService} from 'src/app/services/user.service.service';
 import {ConfigService} from 'src/app/services/config.service.service';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { GroupComponent } from './group/group.component';
 
 
 
@@ -31,7 +32,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     RegisterformComponent,
     HomepageComponent,
     ProfileComponent,
-    NavbarComponent
+    NavbarComponent,
+    GroupComponent
   ],
   imports: [
     HttpClientModule,

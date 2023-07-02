@@ -81,8 +81,46 @@ export class ConfigService {
 
   private _delete_post_url = this._post_url + '/delete';
 
+
+
   get delete_post_url(): string {
     return this._delete_post_url;
+  }
+
+  private _group_url = this._api_url + '/group';
+
+  private _all_groups_url = this._group_url + '/all';
+
+
+
+  get all_groups_url(): string {
+    return this._all_groups_url;
+  }
+
+
+
+  private _add_group_url = this._group_url + '/new';
+
+
+
+  get add_group_url(): string {
+    return this._add_group_url;
+  }
+
+  private _group_id_url = this._group_url + '/page/';
+
+
+
+  get group_id_url(): string {
+    return this. _group_id_url;
+  }
+
+  private _group_delete_url = this._group_url + '/delete/';
+
+
+
+  get group_delete_url(): string {
+    return this. _group_delete_url;
   }
 
 

@@ -5,6 +5,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { PostModel } from 'src/app/models/post.model';
 import { CommentModel } from 'src/app/models/comment.model';
 import { LikeModel } from 'src/app/models/like.model';
+import { GroupModel } from 'src/app/models/group.model';
 import { NgForm } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service.service';
@@ -21,8 +22,11 @@ export class HomepageComponent implements OnInit{
   newPost: any;
   postForm: FormGroup;
   commentForm: FormGroup;
+  groupForm: FormGroup;
   comment: CommentModel | null = null;
   allPosts!: PostModel[];
+  allGroups: GroupModel[];
+
   datepipe: DatePipe = new DatePipe('en-US');
   currentUser: UserModel | null = null;
   constructor(private postService: PostService,private formBuilder: FormBuilder, private userService: UserService, private authService: AuthServiceService){
@@ -32,8 +36,10 @@ export class HomepageComponent implements OnInit{
     this.initPostForm();
     this.initCommentForm();
     this.getAllPosts();
+    this.initGroupForm()
     if(this.signed){
       this.getCurrentUser();
+      this.getAllGroups();
     }
     this.newPost={
       content: '',
@@ -54,6 +60,13 @@ export class HomepageComponent implements OnInit{
     this.postForm = this.formBuilder.group({
       name: ['', Validators.required],
       content: ['', Validators.required]
+    });
+  }
+
+  initGroupForm(): void {
+    this.groupForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required]
     });
   }
 
@@ -153,6 +166,32 @@ export class HomepageComponent implements OnInit{
     }
   }
 
+  createGroup() {
+    if (this.groupForm.invalid) {
+      return;
+    }
+
+    const { name, description } = this.groupForm.value;
+
+    const group: GroupModel = {
+      id: 0,
+      name: name,
+      descripiton: description,
+      creationDate: new Date(),
+      posts: [],
+      user: this.currentUser
+    };
+
+    this.postService.createGroup(group).subscribe(
+      (response: any) => {
+        console.log('Group created successfully');
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
 
   getAllPosts() {
     this.postService.getAllPosts().subscribe(
@@ -163,6 +202,17 @@ export class HomepageComponent implements OnInit{
         alert(error.message);
       }
       );
+  }
+
+  getAllGroups() {
+    this.postService.allGroups().subscribe(
+      (response: GroupModel[]) => {
+        this.allGroups = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
 }

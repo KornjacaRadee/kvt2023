@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>grupicaa</h1>
+
+  <div class="group-details">
+    <h2>About</h2>
+    <p>Description of the group.</p>
+    <p>Description: {{ group.descripiton }}</p>
+    <p>Group created on: {{ group.creationDate }}</p>
+    <p>Created by: {{ group.user.username }}</p>
+  </div>
+
+
+  <div class="group-posts">
+    <h2>Posts</h2>
+    <div class="post" *ngFor="let post of group.posts">
+      <h3>{{ post.postName }}</h3>
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.content }}</p>
+      <p><span>Likes:</span>{{ post.likes.length }}</p>
+      <p>Posted by: {{ post.user.username }}</p>
+      <div class="actions">
+        <button class="like-button" (click)="likePost(post)">Like</button>
+      </div>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <ul>
+          <li *ngFor="let comment of post.comments">
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.postedOn }}</p>
+          </li>
+        </ul>
+        <form [formGroup]="commentForm" (submit)="addComment(post.postId)">
+          <input formControlName="text" type="text" placeholder="Add a comment" required>
+          <button type="submit">Comment</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="create-post-section">
+    <h2>Create a New Post</h2>
+
+    <form [formGroup]="postForm" (submit)="createGroupPost()">
+      <input type="text" formControlName="name" placeholder="Title" required>
+      <textarea formControlName="content" placeholder="Content" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>

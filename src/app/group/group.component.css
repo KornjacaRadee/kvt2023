@@ -2,52 +2,83 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 20px;
 }
 
-.post-list {
-  width: 100vw;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap:50px;
+h1 {
+  font-size: 28px;
+  text-align: center;
+}
+
+.group-details {
+  margin-bottom: 20px;
+}
+
+.group-details h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.group-details p {
+  margin-bottom: 5px;
+}
+
+.group-members h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.group-members ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.group-members li {
+  margin-bottom: 5px;
+}
+
+.group-posts h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .post {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  width: 60vw;
-  border-radius: 30px;
-
-  background-color: #f3f3f3;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s;
-}
-
-.post:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.post h2 {
-  font-size: 24px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px;
   margin-bottom: 10px;
-  color: #333333;
+}
+
+.post h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .post p {
-  margin-bottom: 15px;
-  color: #666666;
-  line-height: 1.5;
+  margin-bottom: 5px;
 }
 
-.post p.author {
-  margin-top: 0;
-  font-style: italic;
-  color: #888888;
+.create-post-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.create-post-section form input[type="text"],
+.create-post-section form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.create-post-section form button[type="submit"] {
+  padding: 8px 15px;
+  background-color: #0079d3;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .actions {
@@ -138,32 +169,4 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
   opacity: 0.8;
-}
-.group{
-  width: 200x;
-  height: 100px;
-  margin-top: 20px;
-  background-color: #ececec;
-  border-radius: 10px;
-}
-
-.group a{
- padding: 5px;
- margin: 0;
-}
-
-.group h2{
-  padding: 5px;
-  margin: 0;
- }
-
- .group p{
-  padding: 5px;
-  margin: 0;
- }
-
- .group-section {
-  float: left;
-  margin-right: 20px;
-  margin-top: 60px;
 }

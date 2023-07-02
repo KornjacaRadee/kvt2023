@@ -1,12 +1,33 @@
+
+<div class="group-section">
+  <div *ngFor="let group of allGroups" class="group">
+    <h2>{{ group.name }}</h2>
+    <p>{{ group.descripiton }}</p>
+    <a [routerLink]="'/group'" [queryParams]="{ id: group.id }">See more</a>
+    </div>
+    </div>
+
 <div class="container">
   <h1>Home page</h1>
-  <div class="new-post-section">
+
+  <div *ngIf="signed()"  class="new-post-section">
+
+<div *ngIf="signed()" class="new-post">
     <h3>Create a New Post</h3>
     <form *ngIf="signed()" [formGroup]="postForm" (submit)="createPost()">
       <input type="text" formControlName="name" placeholder="Title" required>
       <textarea formControlName="content" placeholder="Content" required></textarea>
       <button type="submit">Post</button>
     </form>
+  </div>
+<div *ngIf="signed()" class="new-group">
+    <h3>Create a New Group</h3>
+    <form [formGroup]="groupForm" (submit)="createGroup()">
+      <input type="text" formControlName="name" placeholder="Name" required>
+      <textarea formControlName="description" placeholder="Description" required></textarea>
+      <button type="submit">Post</button>
+    </form>
+    </div>
   </div>
 </div>
   <div class="post-list">
