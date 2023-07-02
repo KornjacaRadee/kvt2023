@@ -24,6 +24,7 @@ export class GroupComponent implements OnInit{
   newPost: any;
   postForm: FormGroup;
   commentForm: FormGroup;
+  groupId: number;
   comment: CommentModel | null = null;
   allPosts!: PostModel[];
   group: GroupModel | null = null;
@@ -35,8 +36,8 @@ export class GroupComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const groupId = params['id'];
-        this.loadGroup(groupId);
+      this.groupId = params['id'];
+        this.loadGroup(this.groupId);
 
     });
     this.getCurrentUser();
@@ -89,6 +90,7 @@ likePost(post: any){
   this.postService.addLike(post.postId,this.currentUser.userId).subscribe(
     (Response: PostModel[]) => {
       this.allPosts = Response;
+      this.loadGroup(this.groupId);
     },
     (error: HttpErrorResponse) => {
       alert(error.message);
@@ -98,6 +100,7 @@ likePost(post: any){
     this.postService.removeLike(post.postId,this.currentUser.userId).subscribe(
       (Response: PostModel[]) => {
         this.allPosts = Response;
+        this.loadGroup(this.groupId);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -111,6 +114,7 @@ addComment(id: number) {
   this.comment.userId = this.currentUser.userId;
   this.comment.content = text;
   this.postService.addComment(id, this.comment).subscribe(() => {
+    this.loadGroup(this.groupId);
 
   },
   (error: HttpErrorResponse) => {
@@ -140,7 +144,7 @@ createGroupPost(): void {
 
   this.postService.createGroup(this.group).subscribe(
     (response: any) => {
-      console.log('Group created:', response);
+      this.loadGroup(this.groupId);
     },
     (error: HttpErrorResponse) => {
       alert(error.message);

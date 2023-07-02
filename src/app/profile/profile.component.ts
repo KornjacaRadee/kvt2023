@@ -5,6 +5,7 @@ import { GroupModel } from 'src/app/models/group.model';
 import { PostModel } from 'src/app/models/post.model';
 import { UserService } from 'src/app/services/user.service.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AuthServiceService } from 'src/app/services/auth.service.service';
 import { PostService } from 'src/app/services/post.service';
 import { FormsModule } from '@angular/forms';
 
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService,private postService: PostService,private formBuilder: FormBuilder) {}
+  constructor(private userService: UserService,private postService: PostService,private formBuilder: FormBuilder,private authService: AuthServiceService,) {}
 
   ngOnInit(): void {
 
@@ -65,7 +66,7 @@ export class ProfileComponent implements OnInit {
         this.getUserGroups();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        this.getUserGroups();
       }
     );
   }
@@ -88,6 +89,7 @@ export class ProfileComponent implements OnInit {
   deletePost(postId: number) {
     this.postService.deletePost(postId).subscribe(
       () => {
+        this.getUserPosts();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -116,6 +118,7 @@ export class ProfileComponent implements OnInit {
     this.userService.changePassword(this.currentUser,oldPassword).subscribe(
       (response: UserModel) => {
         this.currentUser = response;
+        this.logout();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -139,17 +142,20 @@ export class ProfileComponent implements OnInit {
       this.editedPost = post;
       this.editedPost.content = postContent;
       this.editedPost.postName = postName;
-      console.log(this.editedPost.postName);
       this.postService.addPost(this.editedPost).subscribe(
         (response: PostModel) => {
 
           this.cancelEditForm();
+          this.getUserPosts();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
         }
       );
 
+  }
+  logout() {
+    this.authService.logout();
   }
 
   cancelEditForm() {

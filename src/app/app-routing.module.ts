@@ -11,6 +11,7 @@ const routes: Routes = [
    { path: 'register', component: RegisterformComponent },
   { path: 'login', component: LoginformComponent },
   { path: 'homepage', component: HomepageComponent },
+  { path: '', component: HomepageComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'group', component: GroupComponent }

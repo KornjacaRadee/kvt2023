@@ -34,10 +34,9 @@ export class RegisterformComponent {
   ngOnInit() {
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe))
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.form = this.formBuilder.group({
-      username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
       firstName: [''],
       lastName: [''],
       email: ['']
@@ -55,11 +54,11 @@ export class RegisterformComponent {
 
     this.authService.signup(this.form.value)
       .subscribe(data => {
-        console.log(data);
         this.authService.login(this.form.value).subscribe(() => {
           this.userService.getMyInfo().subscribe();
+          this.router.navigate(['/login']);
         });
-        this.router.navigate([this.returnUrl]);
+        this.router.navigate(['/login']);
       },
         error => {
           this.submitted = false;

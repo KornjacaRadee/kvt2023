@@ -44,7 +44,6 @@ export class LoginformComponent implements OnInit{
       .subscribe((params: DisplayMessage) => {
         this.notification = params;
       });
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]

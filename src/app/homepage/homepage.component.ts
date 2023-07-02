@@ -82,7 +82,6 @@ export class HomepageComponent implements OnInit{
         this.currentUser = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
       }
     );
   }}
@@ -135,6 +134,7 @@ export class HomepageComponent implements OnInit{
     this.postService.addPost(post).subscribe(
       (response: PostModel[]) => {
         this.allPosts = response;
+        this.getAllPosts();
         this.postForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -148,6 +148,7 @@ export class HomepageComponent implements OnInit{
     if(!alreadyLiked){
     this.postService.addLike(post.postId,this.currentUser.userId).subscribe(
       (Response: PostModel[]) => {
+        this.getAllPosts();
         this.allPosts = Response;
       },
       (error: HttpErrorResponse) => {
@@ -157,6 +158,7 @@ export class HomepageComponent implements OnInit{
     }else{
       this.postService.removeLike(post.postId,this.currentUser.userId).subscribe(
         (Response: PostModel[]) => {
+          this.getAllPosts();
           this.allPosts = Response;
         },
         (error: HttpErrorResponse) => {
@@ -184,7 +186,7 @@ export class HomepageComponent implements OnInit{
 
     this.postService.createGroup(group).subscribe(
       (response: any) => {
-        console.log('Group created successfully');
+        this.getAllGroups()
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -210,7 +212,6 @@ export class HomepageComponent implements OnInit{
         this.allGroups = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
       }
     );
   }
