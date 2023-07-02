@@ -49,6 +49,12 @@ export class ConfigService {
     return this._posts_url;
   }
 
+  private _add_comment_url = this._post_url + '/comment/';
+
+  get add_comment_url(): string {
+    return this._add_comment_url;
+  }
+
   private _new_post_url = this._post_url + '/new';
 
   get new_post_url(): string {

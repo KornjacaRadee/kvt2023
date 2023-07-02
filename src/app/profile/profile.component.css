@@ -125,7 +125,7 @@ h3 {
 }
 .password-form {
   position: absolute;
-  top: 0;
+  top: 100px;
   left: 0;
   padding: 20px;
   background-color: #ffffff;

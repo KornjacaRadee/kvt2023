@@ -18,6 +18,7 @@ import { AuthServiceService } from"src/app/services/auth.service.service";
 import {UserService} from 'src/app/services/user.service.service';
 import {ConfigService} from 'src/app/services/config.service.service';
 import { ProfileComponent } from './profile/profile.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -29,7 +30,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginformComponent,
     RegisterformComponent,
     HomepageComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavbarComponent
   ],
   imports: [
     HttpClientModule,

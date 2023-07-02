@@ -24,6 +24,10 @@ export class PostService {
     return this.apiService.post(this.config.new_post_url, post);
   }
 
+  public addComment(postId: number,comment: any): Observable<any> {
+    return this.apiService.put(this.config.add_comment_url + postId, comment);
+  }
+
   public updatePost(post: PostModel): Observable<PostModel> {
     return this.apiService.put(this.config.update_post_url, post);
   }

@@ -56,4 +56,10 @@ export class AuthServiceService {
     return this.access_token;
   }
 
+  logout() {
+    this.router.navigate(['/login']);
+    this.access_token = null;
+    this.userService.currentUser = null;
+  }
+
 }

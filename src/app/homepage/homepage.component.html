@@ -11,7 +11,7 @@
 </div>
   <div class="post-list">
     <div *ngFor="let post of allPosts" class="post">
-      <h2>{{ post.postName }}</h2>
+      <h2>{{ post.postId }}</h2>
       <p>{{ post.content }}</p>
       <p class="author">Posted by: {{ post.user.username }}</p>
       <div class="actions">
@@ -22,11 +22,12 @@
         <h3>Comments</h3>
         <ul>
           <li *ngFor="let comment of post.comments">
-            <p>{{ comment }}</p>
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.postedOn }}</p>
           </li>
         </ul>
-        <form (submit)="addComment(post)">
-          <input type="text" placeholder="Add a comment" required>
+        <form [formGroup]="commentForm" (submit)="addComment(post.postId)">
+          <input formControlName="text" type="text" placeholder="Add a comment" required>
           <button type="submit">Submit</button>
         </form>
       </div>

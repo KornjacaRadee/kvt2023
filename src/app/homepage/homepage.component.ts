@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { UserModel } from 'src/app/models/user.model';
 import { PostModel } from 'src/app/models/post.model';
+import { CommentModel } from 'src/app/models/comment.model';
 import { NgForm } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service.service';
@@ -18,6 +19,8 @@ export class HomepageComponent implements OnInit{
 
   newPost: any;
   postForm: FormGroup;
+  commentForm: FormGroup;
+  comment: CommentModel | null = null;
   allPosts!: PostModel[];
   datepipe: DatePipe = new DatePipe('en-US');
   currentUser: UserModel | null = null;
@@ -26,6 +29,7 @@ export class HomepageComponent implements OnInit{
 
   ngOnInit(): void {
     this.initPostForm();
+    this.initCommentForm();
     this.getAllPosts();
     this.getCurrentUser();
     this.newPost={
@@ -33,12 +37,26 @@ export class HomepageComponent implements OnInit{
       user: null,
       creationDate: null
     }
+
+    this.comment={
+      id: null,
+      content: '',
+      userId: null,
+      postedOn: new Date(),
+      post: null
+    }
   }
 
   initPostForm(): void {
     this.postForm = this.formBuilder.group({
       name: ['', Validators.required],
       content: ['', Validators.required]
+    });
+  }
+
+  initCommentForm(): void {
+    this.commentForm = this.formBuilder.group({
+      text: ['', Validators.required]
     });
   }
   getCurrentUser() {
@@ -60,6 +78,20 @@ export class HomepageComponent implements OnInit{
       alert(error.message);
     });
   }
+
+  addComment(id: number) {
+    const { text } = this.commentForm.value;
+    this.comment.userId = this.currentUser.userId;
+    this.comment.content = text;
+    this.postService.addComment(id, this.comment).subscribe(() => {
+      this.getAllPosts();
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    });
+  }
+
+
   createPost() {
     if (this.postForm.invalid) {
       return;
@@ -68,10 +100,11 @@ export class HomepageComponent implements OnInit{
     const { name, content } = this.postForm.value;
 
     const post: PostModel = {
-      id: 0,
+      postId: 0,
       postName: name,
       content: content,
       user: this.currentUser,
+      comments: [],
       creationDate: new Date()
     };
 
