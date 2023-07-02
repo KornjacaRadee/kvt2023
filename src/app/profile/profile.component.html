@@ -6,14 +6,11 @@
     </div>
     <div class="details">
       <h2>{{ currentUser?.firstName }} {{ currentUser?.lastName }}</h2>
-      <p><strong>Username:</strong> {{ currentUser?.userId }}</p>
+      <p><strong>User ID:</strong> {{ currentUser?.userId }}</p>
       <p><strong>Username:</strong> {{ currentUser?.username }}</p>
       <p><strong>Email:</strong> {{ currentUser?.email }}</p>
       <p><strong>Last Login:</strong> {{ currentUser?.lastLogin }}</p>
       <h3>Friends</h3>
-      <ul>
-        <li *ngFor="let friend of currentUser?.friends">{{ friend }}</li>
-      </ul>
       <h3>Groups Administered</h3>
       <ul>
         <li *ngFor="let group of currentUser?.groupAdmin">{{ group }}</li>

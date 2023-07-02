@@ -16,8 +16,8 @@ export class UserService {
   ) {
   }
 
-  changePassword(user: any){
-    return this.apiService.put(this.config.change_password_url, user);
+  changePassword(user: any, oldPassword: string){
+    return this.apiService.put(this.config.change_password_url+"/"+oldPassword, user,);
   }
 
   getMyInfo() {

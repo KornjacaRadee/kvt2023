@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { UserModel } from 'src/app/models/user.model';
 import { PostModel } from 'src/app/models/post.model';
 import { CommentModel } from 'src/app/models/comment.model';
+import { LikeModel } from 'src/app/models/like.model';
 import { NgForm } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service.service';
@@ -31,7 +32,9 @@ export class HomepageComponent implements OnInit{
     this.initPostForm();
     this.initCommentForm();
     this.getAllPosts();
-    this.getCurrentUser();
+    if(this.signed){
+      this.getCurrentUser();
+    }
     this.newPost={
       content: '',
       user: null,
@@ -60,6 +63,7 @@ export class HomepageComponent implements OnInit{
     });
   }
   getCurrentUser() {
+    if(this.signed){
     this.userService.getMyInfo().subscribe(
       (response: UserModel) => {
         this.currentUser = response;
@@ -68,7 +72,7 @@ export class HomepageComponent implements OnInit{
         alert(error.message);
       }
     );
-  }
+  }}
 
   onDelete(postId: number) {
     this.postService.deletePost(postId).subscribe(() => {
@@ -91,6 +95,10 @@ export class HomepageComponent implements OnInit{
     });
   }
 
+  signed() {
+    return Boolean(this.userService.currentUser);
+  }
+
 
   createPost() {
     if (this.postForm.invalid) {
@@ -105,8 +113,11 @@ export class HomepageComponent implements OnInit{
       content: content,
       user: this.currentUser,
       comments: [],
-      creationDate: new Date()
+      creationDate: new Date(),
+      likes: []
     };
+
+
 
     this.postService.addPost(post).subscribe(
       (response: PostModel[]) => {
@@ -119,6 +130,28 @@ export class HomepageComponent implements OnInit{
     );
   }
 
+  likePost(post: any){
+    const alreadyLiked = post.likes.some((like: LikeModel) => like.userId === this.currentUser?.userId);
+    if(!alreadyLiked){
+    this.postService.addLike(post.postId,this.currentUser.userId).subscribe(
+      (Response: PostModel[]) => {
+        this.allPosts = Response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+      );
+    }else{
+      this.postService.removeLike(post.postId,this.currentUser.userId).subscribe(
+        (Response: PostModel[]) => {
+          this.allPosts = Response;
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+        );
+    }
+  }
 
 
   getAllPosts() {

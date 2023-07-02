@@ -27,6 +27,12 @@ export class PostService {
   public addComment(postId: number,comment: any): Observable<any> {
     return this.apiService.put(this.config.add_comment_url + postId, comment);
   }
+  public addLike(postId: number,userId: number): Observable<any> {
+    return this.apiService.put(`${this.config.like_url}${postId}/${userId}`,"");
+  }
+  public removeLike(postId: number,userId: number): Observable<any> {
+    return this.apiService.delete(`${this.config.unlike_url}${postId}/${userId}`,"");
+  }
 
   public updatePost(post: PostModel): Observable<PostModel> {
     return this.apiService.put(this.config.update_post_url, post);

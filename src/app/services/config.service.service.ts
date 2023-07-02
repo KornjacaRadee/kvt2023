@@ -49,6 +49,18 @@ export class ConfigService {
     return this._posts_url;
   }
 
+  private _like_url = this._post_url + '/like/';
+
+  get like_url(): string {
+    return this._like_url;
+  }
+
+  private _unlike_url = this._post_url + '/unlike/';
+
+  get unlike_url(): string {
+    return this._unlike_url;
+  }
+
   private _add_comment_url = this._post_url + '/comment/';
 
   get add_comment_url(): string {

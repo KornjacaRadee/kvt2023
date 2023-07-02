@@ -46,8 +46,8 @@ export class LoginformComponent implements OnInit{
       });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.form = this.formBuilder.group({
-      username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -64,7 +64,7 @@ export class LoginformComponent implements OnInit{
     this.authService.login(this.form.value)
       .subscribe(data => {
           this.userService.getMyInfo().subscribe();
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/homepage']);
         },
         error => {
           this.submitted = false;

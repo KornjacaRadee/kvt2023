@@ -18,7 +18,10 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.getUserInfo();
+
+      this.getUserInfo();
+
+
     this.form = this.formBuilder.group({
       oldPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
@@ -26,7 +29,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  signed() {
+    return Boolean(this.userService.currentUser);
+  }
+
   getUserInfo() {
+
     this.userService.getMyInfo().subscribe(
       (response: UserModel) => {
         this.currentUser = response;
@@ -39,8 +47,11 @@ export class ProfileComponent implements OnInit {
 
   changePasswordForm(){
     const { oldPassword, newPassword, repeatPassword } = this.form.value;
+    console.log(oldPassword);
+    console.log(this.currentUser.password);
+    if(newPassword == repeatPassword){
     this.currentUser.password = newPassword;
-    this.userService.changePassword(this.currentUser).subscribe(
+    this.userService.changePassword(this.currentUser,oldPassword).subscribe(
       (response: UserModel) => {
         this.currentUser = response;
       },
@@ -49,5 +60,5 @@ export class ProfileComponent implements OnInit {
       }
     );
 
-  }
+  }}
 }
